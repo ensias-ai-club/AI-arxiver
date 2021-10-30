@@ -23,6 +23,7 @@ def query(term, priority):
     )
     return query
 
+mlcat = ['cs.AI', 'cs.LG', 'cs.CV', 'cs.CL', 'cs.NE', 'stat.ML', 'cs.RO']
 
 @bot.command(name = "latest", help = "pulls a link for the most recent paper based on a search term")
 async def latest(ctx, arg):
@@ -31,7 +32,7 @@ async def latest(ctx, arg):
      
     for result in results:
         cat = result.categories
-        if all(x in cat for x in ['cs.AI', 'cs.LG']):
+        if any(x in cat for x in mlcat):
             response = f'{result.entry_id} \n **{result.title}** \n {result.summary}'
             await ctx.send(response)
             break
@@ -43,7 +44,7 @@ async def best(ctx, arg):
      
     for result in results:
         cat = result.categories
-        if all(x in cat for x in ['cs.AI', 'cs.LG']):
+        if any(x in cat for x in mlcat):
             response = f'{result.entry_id} \n **{result.title}** \n {result.summary}'
             await ctx.send(response)
             break
