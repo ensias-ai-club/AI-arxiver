@@ -1,4 +1,3 @@
-discord.py==1.7.1
 arxiv==1.4.2
 discord==1.7.3
 python-dotenv==0.19.1
