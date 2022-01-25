@@ -23,8 +23,7 @@ def query(term, priority):
     )
     return query
 
-mlcat = ['cs.AI', 'cs.LG', 'cs.CV', 'cs.CL', 'cs.NE', 'stat.ML', 'cs.RO']
-mathcat = ['math.MP', 'math.IT', 'math.GM', 'math.OC', 'math.PR', 'math.NA', 'math.ST', 'stat.ME', 'stat.TH', 'stat.CO']
+mlcat = ['cs.AI', 'cs.LG', 'cs.CV', 'cs.CL', 'cs.NE', 'stat.ML', 'cs.RO', 'math.MP', 'math.IT', 'math.GM', 'math.OC', 'math.PR', 'math.NA', 'math.ST', 'stat.ME', 'stat.TH', 'stat.CO']
 
 
 @bot.group(pass_context = True, help = "pulls the most recent paper based on a search term")
@@ -34,14 +33,14 @@ async def latest(ctx):
 
 
 @latest.group(name = "summary", help = "provide a summary for the paper")
-async def summary(ctx, arg, arg1 = mlcat):
+async def summary(ctx, arg):
     try :
         search = query(arg, arxiv.SortCriterion.SubmittedDate)
         results = search.results()
      
         for result in results:
             cat = result.categories
-            if any(x in cat for x in arg1):
+            if any(x in cat for x in mlcat):
                 response = f'{result.entry_id} \n **{result.title}** \n {result.summary}'
                 await ctx.send(response)
                 break
@@ -49,14 +48,14 @@ async def summary(ctx, arg, arg1 = mlcat):
         await ctx.send('timeout : paper probably not available')
 
 @latest.group(name = "download", help = "provide a pdf download for the paper")
-async def download(ctx, arg, arg1 = mlcat):
+async def download(ctx, arg):
     try : 
         search = query(arg, arxiv.SortCriterion.SubmittedDate)
         results = search.results()
      
         for result in results:
             cat = result.categories
-            if any(x in cat for x in arg1):
+            if any(x in cat for x in mlcat):
                 response = result.pdf_url 
                 await ctx.send(response)
                 break
@@ -71,14 +70,14 @@ async def best(ctx):
 
 
 @best.group(name = "summary", help = "provide summary for the paper")
-async def summary(ctx, arg, arg1 = mlcat):
+async def summary(ctx, arg):
     try : 
         search = query(arg, arxiv.SortCriterion.Relevance)
         results = search.results()
      
         for result in results:
             cat = result.categories
-            if any(x in cat for x in arg1):
+            if any(x in cat for x in mlcat):
                 response = f'{result.entry_id} \n **{result.title}** \n {result.summary}'
                 await ctx.send(response)
                 break
@@ -86,14 +85,14 @@ async def summary(ctx, arg, arg1 = mlcat):
         await ctx.send('timeout : paper probably not available')
 
 @best.group(name = "download", help = "provide a pdf download for the paper")
-async def download(ctx, arg, arg1 = mlcat):
+async def download(ctx, arg):
     try : 
         search = query(arg, arxiv.SortCriterion.Relevance)
         results = search.results()
      
         for result in results:
             cat = result.categories
-            if any(x in cat for x in arg1):
+            if any(x in cat for x in mlcat):
                 response = result.pdf_url
                 await ctx.send(response)
                 break
