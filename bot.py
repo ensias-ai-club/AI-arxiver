@@ -16,12 +16,12 @@ GUILD = os.getenv('DISCORD_GUILD')
 bot = commands.Bot(command_prefix='!')
 
 def query(term, priority):
-    if term.startswith('http') or term.startswith('arxiv.org'):
+    if term.startswith('http'):
         arxiv_id = ""
-        try:
-            arxiv_id = term.replace("https://arxiv.org/abs/", "")
-        except:
+        arxiv_id = term.replace("https://arxiv.org/abs/", "")
+        if arxiv_id == term:
             arxiv_id = term.replace("https://arxiv.org/pdf/", "")
+
         query = arxiv.Search(
             id_list = [arxiv_id],
             sort_by = priority,
@@ -58,7 +58,7 @@ async def summary(ctx, arg):
                 await ctx.send(response)
                 break
     except:
-        await ctx.send('timeout : paper probably not available')
+        await ctx.send('timeout : paper probably not available in the machine learning categories')
 
 @latest.group(name = "download", help = "provide a pdf download for the paper")
 async def download(ctx, arg):
@@ -73,7 +73,7 @@ async def download(ctx, arg):
                 await ctx.send(response)
                 break
     except:
-        await ctx.send('timeout : paper probably not available')
+        await ctx.send('timeout : paper probably not available in the machine learning categories')
 
 @bot.group(pass_context = True, help = "pulls the most relevant paper based on a search term")
 async def best(ctx):
@@ -95,7 +95,7 @@ async def summary(ctx, arg):
                 await ctx.send(response)
                 break
     except :
-        await ctx.send('timeout : paper probably not available')
+        await ctx.send('timeout : paper probably not available in the machine learning categories')
 
 @best.group(name = "download", help = "provide a pdf download for the paper")
 async def download(ctx, arg):
@@ -110,9 +110,6 @@ async def download(ctx, arg):
                 await ctx.send(response)
                 break
     except:
-        await ctx.send('timeout : paper probably not available')
-
-
-
+        await ctx.send('timeout : paper probably not available in the machine learning categories')
 
 bot.run(TOKEN)
