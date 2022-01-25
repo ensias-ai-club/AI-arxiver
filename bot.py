@@ -16,11 +16,24 @@ GUILD = os.getenv('DISCORD_GUILD')
 bot = commands.Bot(command_prefix='!')
 
 def query(term, priority):
-    query = arxiv.Search(
-        query = term,
-        sort_by = priority,
-        sort_order = arxiv.SortOrder.Descending
-    )
+    if term.startswith('http') or term.startswith('arxiv.org'):
+        arxiv_id = ""
+        try:
+            arxiv_id = term.replace("https://arxiv.org/abs/", "")
+        except:
+            arxiv_id = term.replace("https://arxiv.org/pdf/", "")
+        query = arxiv.Search(
+            id_list = [arxiv_id],
+            sort_by = priority,
+            sort_order = arxiv.SortOrder.Descending
+        )
+
+    else:
+        query = arxiv.Search(
+            query = term,
+            sort_by = priority,
+            sort_order = arxiv.SortOrder.Descending
+        )
     return query
 
 mlcat = ['cs.AI', 'cs.LG', 'cs.CV', 'cs.CL', 'cs.NE', 'stat.ML', 'cs.RO', 'math.MP', 'math.IT', 'math.GM', 'math.OC', 'math.PR', 'math.NA', 'math.ST', 'stat.ME', 'stat.TH', 'stat.CO']
