@@ -4,7 +4,7 @@ a discord bot that pulls the latest or most relevant research papers from arxiv.
 
 invite link : [Arxiver bot link](https://discord.com/api/oauth2/authorize?client_id=903757099597701140&permissions=0&scope=bot)
 
-**works in progress**
+**work in progress**
 
 # Usage
 
@@ -24,4 +24,5 @@ invite link : [Arxiver bot link](https://discord.com/api/oauth2/authorize?client
 > * summary : provides summary for the paper
 > * download : provides pdf download link for the paper
 
-
+* Note
+handling spaces : !command subcommand some\search\term\with\spaces
