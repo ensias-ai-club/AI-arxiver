@@ -24,7 +24,7 @@ def query(term, priority):
     return query
 
 mlcat = ['cs.AI', 'cs.LG', 'cs.CV', 'cs.CL', 'cs.NE', 'stat.ML', 'cs.RO']
-mathcat = ['math.MP', 'math.IT', 'math.GM', 'math.OC', 'math.PR', 'math.NA']
+mathcat = ['math.MP', 'math.IT', 'math.GM', 'math.OC', 'math.PR', 'math.NA', 'math.ST', 'stat.ME', 'stat.TH', 'stat.CO']
 
 
 @bot.group(pass_context = True, help = "pulls the most recent paper based on a search term")
